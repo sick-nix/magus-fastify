@@ -5,11 +5,32 @@ services:
       context: .
       dockerfile: Dockerfile
     entrypoint: ["npm", "run", "dev"]
-    environment:
-      - ADDRESS=0.0.0.0
-      - PORT=8080
+    env_file:
+      - .env
     volumes:
-      - ./:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./:/usr/app
+      - /usr/app/node_modules
     ports:
       - "8080:8080"
+  db:
+    image: postgres:16
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=magus
+  adminer:
+    image: adminer:4
+    restart: always
+    ports:
+      - "4040:8080"
+  portainer:
+    image: portainer/portainer-ce:latest
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    ports:
+      - "8000:8000"
+      - "9443:9443"
+volumes:
+  portainer_data:
