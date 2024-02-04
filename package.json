@@ -1,0 +1,22 @@
+{
+	"name": "magus-fastify",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"dev": "nodemon ./src/index.ts --config nodemon.json",
+		"start": "node ./build/index.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node": "^20.11.16",
+		"nodemon": "^3.0.3",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.3.3"
+	},
+	"dependencies": {
+		"fastify": "^4.26.0"
+	}
+}

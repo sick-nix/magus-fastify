@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    entrypoint: ["npm", "run", "dev"]
+    environment:
+      - ADDRESS=0.0.0.0
+      - PORT=8080
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "8080:8080"
