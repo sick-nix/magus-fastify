@@ -1,10 +1,16 @@
-export const CONFIG = {
-	ADDRESS: process.env.ADDRESS ?? "0.0.0.0",
-	PORT: parseInt(process.env.PORT ?? "8080"),
-	DB_CONNECTION_STRING: process.env.DB_CONNECTION_STRING ?? "",
-	DB_HOST: process.env.DB_HOST ?? "127.0.0.1",
-	DB_PORT: parseInt(process.env.DB_PORT ?? "3306"),
-	DB_USER: process.env.DB_USER ?? "",
-	DB_PASSWORD: process.env.DB_PASSWORD ?? "",
-	DB_NAME: "magus",
-}
+import { z } from "zod"
+
+const envSchema = z.object({
+	SERVER_ADDRESS: z.string().default("0.0.0.0"),
+	SERVER_PORT: z.number().default(8080),
+	DB_CONNECTION_STRING: z.string(),
+	DB_HOST: z.string().default("db"),
+	DB_PORT: z.number().default(5432),
+	DB_NAME: z.string().default("magus"),
+	DB_USER: z.string().default("magus"),
+	DB_PASSWORD: z.string(),
+	COOKIE_SIGN_SECRET: z.string(),
+	JWT_SIGN_SECRET: z.string(),
+})
+
+export const ENV = envSchema.parse(process.env)

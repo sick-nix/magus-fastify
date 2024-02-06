@@ -1,11 +1,15 @@
 import { Sequelize } from "sequelize"
-import { CONFIG } from "../helpers/env"
+import { ENV } from "../helpers/env"
 
 export const db = new Sequelize({
 	dialect: "postgres",
-	host: CONFIG.DB_HOST,
-	port: CONFIG.DB_PORT,
-	username: CONFIG.DB_USER,
-	password: CONFIG.DB_PASSWORD,
-	database: CONFIG.DB_NAME,
+	host: ENV.DB_HOST,
+	port: ENV.DB_PORT,
+	username: ENV.DB_USER,
+	password: ENV.DB_PASSWORD,
+	database: ENV.DB_NAME,
+})
+
+db.authenticate().catch((dbError) => {
+	throw "Unable to connect to the database:" + dbError
 })
