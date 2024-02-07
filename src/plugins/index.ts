@@ -1,13 +1,14 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
+import { FastifyReply, FastifyRequest } from "fastify"
 import cors from "@fastify/cors"
 import cookiePlugin from "@fastify/cookie"
 import jwtPlugin from "@fastify/jwt"
 import staticPlugin from "@fastify/static"
 import path from "path"
 import { ENV } from "../helpers/env"
-import { db } from "../db"
+import { db } from "../models"
+import fp from "fastify-plugin"
 
-export async function registerPlugins(fastify: FastifyInstance) {
+export const registerPlugins = fp((fastify, _, done) => {
 	fastify.register(cors)
 	fastify.register(staticPlugin, {
 		root: path.join(process.cwd(), "public"),
@@ -35,4 +36,5 @@ export async function registerPlugins(fastify: FastifyInstance) {
 	)
 
 	fastify.decorate("db", db)
-}
+	done()
+})

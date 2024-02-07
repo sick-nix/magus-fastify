@@ -1,7 +1,7 @@
-import { FastifyInstance } from "fastify"
 import { registerAuthRoutes } from "./auth"
+import fp from "fastify-plugin"
 
-export async function registerRoutes(fastify: FastifyInstance) {
+export const registerRoutes = fp((fastify, _, done) => {
 	fastify.get("/", function (request, response) {
 		response.sendFile("index.html")
 	})
@@ -10,4 +10,5 @@ export async function registerRoutes(fastify: FastifyInstance) {
 	})
 
 	fastify.register(registerAuthRoutes, { prefix: "auth" })
-}
+	done()
+})
