@@ -20,6 +20,7 @@ fastify.listen(
 	{ host: ENV.SERVER_ADDRESS, port: parseInt(ENV.SERVER_PORT) },
 	(err, address) => {
 		if (err) {
+			fastify?.db?.$disconnect()
 			console.error(err)
 			process.exit(1)
 		}

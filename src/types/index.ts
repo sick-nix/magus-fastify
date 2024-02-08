@@ -1,9 +1,9 @@
+import { PrismaClient } from "@prisma/client"
 import { onRequestHookHandler } from "fastify"
-import { Sequelize } from "sequelize"
 
 declare module "fastify" {
 	interface FastifyInstance {
 		authenticate: onRequestHookHandler
-		db: Sequelize
+		db: PrismaClient
 	}
 }
