@@ -3,12 +3,15 @@ import cors from "@fastify/cors"
 import cookiePlugin from "@fastify/cookie"
 import jwtPlugin from "@fastify/jwt"
 import staticPlugin from "@fastify/static"
+import printRoutesPlugin from "./print-routes"
 import path from "path"
 import { ENV } from "../helpers/env"
 import { db } from "../models"
 import fp from "fastify-plugin"
 
 export const registerPlugins = fp((fastify, _, done) => {
+	if (ENV.NODE_ENV == "development") fastify.register(printRoutesPlugin)
+
 	fastify.register(cors)
 	fastify.register(staticPlugin, {
 		root: path.join(process.cwd(), "public"),

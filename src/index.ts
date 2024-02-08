@@ -14,7 +14,7 @@ fastify.setValidatorCompiler(validatorCompiler)
 fastify.setSerializerCompiler(serializerCompiler)
 
 fastify.register(registerPlugins)
-fastify.register(registerRoutes, { prefix: "api/v1" })
+fastify.register(registerRoutes)
 
 fastify.listen(
 	{ host: ENV.SERVER_ADDRESS, port: parseInt(ENV.SERVER_PORT) },

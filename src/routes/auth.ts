@@ -1,8 +1,8 @@
-import fp from "fastify-plugin"
 import bcrypt from "bcrypt"
 import { z } from "zod"
 import { ZodTypeProvider } from "fastify-type-provider-zod"
 import { User } from "../models/user"
+import { FastifyRegisterFunction } from "../types/routes"
 
 const registerSchema = z.object({
 	email: z.string().email(),
@@ -18,7 +18,16 @@ async function hashPassword(password: string) {
 	return await bcrypt.hash(password, 10)
 }
 
-export const registerAuthRoutes = fp((fastify, _, done) => {
+export const registerAuthRoutes: FastifyRegisterFunction = (
+	fastify,
+	_,
+	done
+) => {
+	// fastify
+	// 	.withTypeProvider<ZodTypeProvider>()
+	// 	.get("/", async function (request) {
+	// 		return { hello: "world" }
+	// 	})
 	fastify.withTypeProvider<ZodTypeProvider>().post(
 		"/register",
 		{
@@ -64,4 +73,4 @@ export const registerAuthRoutes = fp((fastify, _, done) => {
 	})
 
 	done()
-})
+}

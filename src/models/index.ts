@@ -8,6 +8,7 @@ export const db = new Sequelize({
 	username: ENV.DB_USER,
 	password: ENV.DB_PASSWORD,
 	database: ENV.DB_NAME,
+	logging: false,
 })
 
 db.authenticate().catch((dbError) => {
