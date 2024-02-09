@@ -26,6 +26,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
   adminer:
     image: adminer:4
     restart: always
@@ -45,3 +49,4 @@ services:
       - "9443:9443"
 volumes:
   portainer_data:
+  pgdata:
